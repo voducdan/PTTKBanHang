@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PTTKBanHang"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize">
     <Grid>
-
+        <TextBlock Text="ĐỒ ÁN MÔN PTTK HTTT" Foreground="Red" FontSize="30" TextAlignment="Center" Margin="0,35,0,346"></TextBlock>
+        <Button Content="Chức năng nhập hàng" Margin="93,125,488,217" FontSize="20" Background="Blue" Foreground="White" Name="NhapHang" Click="NhapHang_Click" Cursor="Hand"></Button>
     </Grid>
 </Window>

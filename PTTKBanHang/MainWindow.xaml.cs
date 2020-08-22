@@ -24,5 +24,11 @@ namespace PTTKBanHang
         {
             InitializeComponent();
         }
+
+        private void NhapHang_Click(object sender, RoutedEventArgs e)
+        {
+            var pttk = new NhapHang();
+            pttk.Show();
+        }
     }
 }
