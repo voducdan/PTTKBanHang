@@ -24,9 +24,9 @@
                     <GridView>
                         <GridViewColumn Width="150" Header="Name" DisplayMemberBinding="{Binding Name}">
                         </GridViewColumn>
-                        <GridViewColumn Width="100" Header="Price" DisplayMemberBinding="{Binding UnitPrice}">
+                        <GridViewColumn Width="80" Header="Price" DisplayMemberBinding="{Binding UnitPrice}">
                         </GridViewColumn>
-                        <GridViewColumn Width="50"         Header="Quantity">
+                        <GridViewColumn Width="70"         Header="Quantity">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
                                     <TextBox Text="{Binding Quantity, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="150"/>

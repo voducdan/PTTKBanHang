@@ -110,6 +110,7 @@ namespace PTTKBanHang
                     OracleCommand oraCommand = new OracleCommand($"INSERT INTO CHITIETNHAPHANG(MADNH ,MASP,SOLUONG) VALUES({MaDNH},{selectedProduct.Id},{selectedProduct.Quantity})", con);
                     oraCommand.ExecuteNonQuery();
                 }
+                con.Close();
                 return 1;
             }
             catch (Exception e)
@@ -123,10 +124,16 @@ namespace PTTKBanHang
             try
             {
                 OracleConnection con = OracleDBAccess.ConnectOracle();
+                int MaDNH = 0;
                 con.Open();
-                OracleCommand oraCommand = new OracleCommand("SELECT max(d.MANCC ) FROM DONNHAPHANG d", con);
+                OracleCommand oraCommand = new OracleCommand("SELECT max(d.MADNH ) FROM DONNHAPHANG d", con);
                 OracleDataReader res = oraCommand.ExecuteReader();
-                return Int32.Parse(res.GetValue(0).ToString());
+                while (res.Read())
+                {
+                    MaDNH = Int32.Parse(res.GetValue(0).ToString());
+                }
+                con.Close();
+                return MaDNH + 1;
             }
             catch (Exception e)
             {
@@ -139,7 +146,8 @@ namespace PTTKBanHang
     {
         private readonly CollectionView _providers;
         private readonly string _created_date;
-        private Provider _provider;
+        private string _provider;
+        private int _providerId;
         private ProviderProduct _product;
         private SelectedProduct _selectedProduct;
         private ObservableCollection<ProviderProduct> _providerProducts;
@@ -183,16 +191,33 @@ namespace PTTKBanHang
                 //OnPropertyChanged("ProviderProducts");
             }
         }
-        public Provider Provider
+        public string Provider
         {
             get { return _provider; }
             set
             {
                 if (_provider == value) return;
                 _provider = value;
+                foreach(Provider provider in _providers)
+                {
+                    if(provider.Name == _provider)
+                    {
+                        _providerId = provider.Id;
+                        break;
+                    }
+                }
                 _selectedProducts.Clear();
                 OnPropertyChanged("Provider");
                 OnPropertyChanged("ProviderProducts");
+            }
+        }
+        public int ProviderId
+        {
+            get { return _providerId; }
+            set
+            {
+                if (_providerId == value) return;
+                _providerId = value;
             }
         }
         public ProviderProduct Product
@@ -232,7 +257,7 @@ namespace PTTKBanHang
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
                 IList<ProviderProduct> providerProducts = new List<ProviderProduct>();
-                providerProducts = OracleDBAccess.GetProviderProducts(_provider.Name);
+                providerProducts = OracleDBAccess.GetProviderProducts(_provider);
                 _providerProducts = new ObservableCollection<ProviderProduct>(providerProducts);
             }
         }
@@ -340,11 +365,11 @@ namespace PTTKBanHang
 
         private void ConfirmExecute()
         {
-            int MaNCC = _provider.Id;
+            int MaNCC = _providerId;
             int MaDNH = OracleDBAccess.GetOrderReportId();
             BusinessHandle.Order(new List<SelectedProduct>(_selectedProducts), MaNCC, MaDNH);
-
-
+            _selectedProducts.Clear();
+            MessageBox.Show("Order completed");
         }
     }
 
