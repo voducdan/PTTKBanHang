@@ -6,26 +6,56 @@
         xmlns:local="clr-namespace:PTTKBanHang"
         mc:Ignorable="d"
         Title="NhapHang" Height="450" Width="800" ResizeMode="NoResize">
+
     <Grid Margin="0,4,0,-4">
         <TextBlock HorizontalAlignment="Center" Margin="0,28,0,0" Text="PHIẾU NHẬP HÀNG" TextWrapping="Wrap" VerticalAlignment="Top" Height="31" Width="252" FontSize="22" TextAlignment="Center" Foreground="#FFE60606" FontWeight="Bold" FontStyle="Normal">
         </TextBlock>
         <TextBlock HorizontalAlignment="Left" Margin="28,75,0,0" Text="Chọn nhà cung cấp" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Top" Height="20" Width="159"/>
-        <ComboBox HorizontalAlignment="Left" Name="ProvidersSelected" Margin="187,76,0,0" 
+        <ComboBox HorizontalAlignment="Left" Name="ProvidersSelected" Margin="187,76,0,0"
           ItemsSource="{Binding Path=Providers}" 
           DisplayMemberPath="Name"
           SelectedValue="{Binding
-            Path=Provider.Name}" 
-          SelectedItem="{Binding Path=Provider}" 
-              VerticalAlignment="Top" Width="120"/>
-        <DataGrid Margin="21,132,443,109" Name="ProviderProducts"/>
-        <DataGrid Margin="441,132,23,109" Name="SelectedProducts"/>
-        <Button Content="Xác nhận" HorizontalAlignment="Left" Margin="338,374,0,0" VerticalAlignment="Top" Height="30" Width="89" FontSize="16" Background="#FF1D1C1C" Foreground="#FFFBFBFB" Name="ConfirmBtn"/>
+            Path=Provider}" 
+          SelectedValuePath="Name"
+          VerticalAlignment="Top" Width="120" />
+        <Grid Margin="21,132,443,109" Name="ProviderProducts" >
+            <ListView SelectedValue="{Binding Path=Product}" ItemsSource="{Binding ProviderProducts}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="150" Header="Name" DisplayMemberBinding="{Binding Name}">
+                        </GridViewColumn>
+                        <GridViewColumn Width="100" Header="Price" DisplayMemberBinding="{Binding UnitPrice}">
+                        </GridViewColumn>
+                        <GridViewColumn Width="50"         Header="Quantity">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Quantity, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="150"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <Grid Margin="441,132,23,109" Name="SelectedProducts">
+            <ListView SelectedValue="{Binding Path=SelectedProduct}" ItemsSource="{Binding SelectedProducts}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="210" Header="Name" DisplayMemberBinding="{Binding Name}">
+                        </GridViewColumn>
+                        <GridViewColumn Width="100" Header="Price" DisplayMemberBinding="{Binding Price}">
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+        <Button Content="Xác nhận" HorizontalAlignment="Left" Margin="338,374,0,0" VerticalAlignment="Top" Height="30" Width="89" FontSize="16" Background="#FF1D1C1C" Foreground="#FFFBFBFB" Name="ConfirmBtn" Command="{Binding Path=Confirm}"/>
         <TextBlock HorizontalAlignment="Left" Margin="21,335,0,0" Text="Ngày lập phiếu" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="128,335,0,0" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Top" Name="Created_date" Text="{Binding Path=CreatedDate}" />
         <TextBlock HorizontalAlignment="Left" Margin="21,359,0,0" Text="Thành tiền" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Top"/>
-        <TextBlock HorizontalAlignment="Left" Margin="128,359,0,0" Text="50000 NVĐ" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Top" Name="TotalPrice"/>
-        <Button Content="THÊM" Background="Blue" Foreground="White" FontSize="16" HorizontalAlignment="Center" Margin="0,186,0,0" VerticalAlignment="Top" Name="AddProduct"/>
-        <Button Content="XÓA" Background="Red" Foreground="White" FontSize="16" HorizontalAlignment="Center" Margin="0,248,0,0" VerticalAlignment="Top" Width="54" Name="DeleteProduct"/>
+        <TextBlock HorizontalAlignment="Left" Margin="128,359,0,0" FontSize="14" Text="{Binding TotalPrice}" TextWrapping="Wrap" VerticalAlignment="Top" Name="TotalPrice"/>
+        <Button Content="THÊM" Background="Blue" Foreground="White" FontSize="16" HorizontalAlignment="Center" Margin="0,186,0,0" VerticalAlignment="Top" Command="{Binding Path=AddProduct}" />
+        <Button Content="XÓA" Background="Red" Foreground="White" FontSize="16" HorizontalAlignment="Center" Margin="0,248,0,0" VerticalAlignment="Top" Width="54" Name="DeleteProduct" Command="{Binding Path=RemoveProduct}"/>
         <TextBlock HorizontalAlignment="Left" Margin="23,111,0,0" Text="Danh sách sản phẩm của nhà cung cấp" TextWrapping="Wrap" VerticalAlignment="Top"/>
         <TextBlock HorizontalAlignment="Left" Margin="441,111,0,0" Text="Danh sách sản phẩm chọn" TextWrapping="Wrap" VerticalAlignment="Top"/>
     </Grid>
