@@ -30,5 +30,11 @@ namespace PTTKBanHang
             var pttk = new NhapHang();
             pttk.Show();
         }
+
+        private void QuangCao_Click(object sender, RoutedEventArgs e)
+        {
+            var quangcao = new QuangCao();
+            quangcao.Show();
+        }
     }
 }

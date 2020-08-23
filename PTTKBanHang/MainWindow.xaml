@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" ResizeMode="NoResize">
     <Grid>
-        <TextBlock Text="ĐỒ ÁN MÔN PTTK HTTT" Foreground="Red" FontSize="30" TextAlignment="Center" Margin="0,35,0,346"></TextBlock>
-        <Button Content="Chức năng nhập hàng" Margin="93,125,488,217" FontSize="20" Background="Blue" Foreground="White" Name="NhapHang" Click="NhapHang_Click" Cursor="Hand"></Button>
+		<TextBlock Foreground="Red" FontSize="30" TextAlignment="Center" Margin="0,26,0,339"><Run FontWeight="Bold" Text="ĐỒ ÁN MÔN PTTK HTTT"/></TextBlock>
+		<Button Content="Chức năng nhập hàng" Margin="93,125,488,217" FontSize="20" Background="Blue" Foreground="White" Name="NhapHang" Click="NhapHang_Click" Cursor="Hand"></Button>
+        <Button Content="Chức năng quảng cáo" Margin="457,125,124,217" FontSize="20" Background="Blue" Foreground="White" Name="QuangCao" Cursor="Hand" Click="QuangCao_Click"></Button>
     </Grid>
 </Window>
