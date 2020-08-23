@@ -11,7 +11,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Data;
 using Oracle.ManagedDataAccess.Client;
-
+using System.ComponentModel;
+using System.Data.SqlClient;
+using PTTKBanHang.Models;
 
 namespace PTTKBanHang
 {
@@ -23,30 +25,14 @@ namespace PTTKBanHang
         public NhapHang()
         {
             InitializeComponent();
-            string created_date = DateTime.Today.Day.ToString() + "/" +  DateTime.Today.Month.ToString() + "/" + DateTime.Today.Year.ToString();
-            Created_date.Text = created_date;
-            try
-            {
-                OracleConnection con = ConnectOracle();
-
-                string selectRoles = "SELECT * FROM EMP_1712317";
-
-                OracleCommand occmd = new OracleCommand(selectRoles, con);
-                con.Open();
-                OracleDataReader ocr = occmd.ExecuteReader();
-                DataTable ds = new DataTable();
-                ds.Load(ocr);
-                ProviderProducts.ItemsSource = ds.DefaultView;
-                con.Close();
-            }
-
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
+            ProvidersViewModel vm = new ProvidersViewModel();
+            DataContext = vm;
         }
+    }
 
-        private static OracleConnection ConnectOracle()
+    public class OracleDBAccess
+    {
+        public static OracleConnection ConnectOracle()
         {
 
             OracleConnection con = new OracleConnection();
@@ -57,5 +43,66 @@ namespace PTTKBanHang
             con.ConnectionString = ocsb.ConnectionString;
             return con;
         }
+        public static IList<Provider> GetProviders()
+        {
+            IList<Provider> providers = new List<Provider>();
+            OracleConnection con = OracleDBAccess.ConnectOracle();
+            SqlParameter providerName = new SqlParameter();
+            string query = "SELECT n.TENNCC FROM NHACUNGCAP n";
+            OracleCommand occmd = new OracleCommand(query, con);
+            con.Open();
+            OracleDataReader ocr = occmd.ExecuteReader();
+            while (ocr.Read())
+            {
+                var provider = new Provider(ocr.GetValue(0).ToString());
+                providers.Add(provider);
+            }
+            con.Close();
+            return providers;
+        }
     }
+    public class ProvidersViewModel
+    {
+        private readonly CollectionView _providers;
+        private readonly string _created_date;
+        private string _provider;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        
+        public ProvidersViewModel()
+        {
+            IList<Provider> providers = new List<Provider>();
+            providers = OracleDBAccess.GetProviders();
+
+            _providers = new CollectionView(providers);
+            string created_date = DateTime.Today.Day.ToString() + "/" + DateTime.Today.Month.ToString() + "/" + DateTime.Today.Year.ToString();
+            _created_date = created_date;
+        }
+        public CollectionView Providers
+        {
+            get { return _providers; }
+        }
+
+        public string Provider
+        {
+            get { return _provider; }
+            set
+            {
+                if (_provider == value) return;
+                _provider = value;
+                OnPropertyChanged("Provider");
+            }
+        }
+
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public string CreatedDate 
+        {
+            get { return _created_date; }
+        }
+    }
+
 }
