@@ -9,18 +9,44 @@
 	<Grid>
 		<TextBlock HorizontalAlignment="Center" Margin="0,28,0,0" Text="PHIẾU QUẢNG CÁO" TextWrapping="Wrap" VerticalAlignment="Top" Height="31" Width="252" FontSize="22" TextAlignment="Center" Foreground="#FFE60606" FontWeight="Bold" FontStyle="Normal"/>
 		<TextBlock HorizontalAlignment="Left" Margin="28,77,0,0" Text="Chọn đối tác" TextWrapping="Wrap" FontSize="16" VerticalAlignment="Top" Height="20" Width="115"/>
-		<ComboBox HorizontalAlignment="Left" x:Name="Providers" Margin="140,76,0,0" VerticalAlignment="Top" Width="137"/>
-		<DataGrid Margin="21,132,443,109" x:Name="ProviderProducts"/>
-		<DataGrid Margin="441,132,23,109" x:Name="SelectedProducts"/>
-		<Button Content="Xác nhận" HorizontalAlignment="Left" Margin="338,374,0,0" VerticalAlignment="Top" Height="30" Width="89" FontSize="16" Background="#FF1D1C1C" Foreground="#FFFBFBFB" x:Name="ConfirmBtn"/>
+		<ComboBox HorizontalAlignment="Left" Margin="140,76,0,0" VerticalAlignment="Top" Width="187"
+				  ItemsSource="{Binding Path=Providers}"
+				  SelectedValue="{Binding Path=Provider}"
+				  SelectedValuePath="Name"
+				  DisplayMemberPath="Name"
+				  />
+		<Grid Margin="21,132,443,109" Name="ListProviderProducts">
+			<ListView SelectedValue="{Binding Path=ListProduct}" ItemsSource="{Binding AdProviderProducts}">
+				<ListView.View>
+					<GridView>
+						<GridViewColumn Width="150" Header="Name" DisplayMemberBinding="{Binding Name}">
+						</GridViewColumn>
+						<GridViewColumn Width="80" Header="Type" DisplayMemberBinding="{Binding Type}">
+						</GridViewColumn>
+						<GridViewColumn Width="70" Header="Price" DisplayMemberBinding="{Binding Price}">
+						</GridViewColumn> 
+					</GridView>
+				</ListView.View>
+			</ListView>
+		</Grid>
+		<Grid Margin="441,132,23,109" Name="SelectedProducts">
+			<ListView SelectedValue="{Binding Path=AdSelectedProduct}" ItemsSource="{Binding AdSelectedProducts}">
+				<ListView.View>
+					<GridView>
+						<GridViewColumn Width="175" Header="Name" DisplayMemberBinding="{Binding Name}">
+						</GridViewColumn>
+						<GridViewColumn Width="160" Header="Type" DisplayMemberBinding="{Binding Type}">
+						</GridViewColumn>
+					</GridView>
+				</ListView.View>
+			</ListView>
+		</Grid>
+		<Button Content="Xác nhận" HorizontalAlignment="Left" Margin="338,374,0,0" VerticalAlignment="Top" Height="30" Width="89" FontSize="16" Background="#FF1D1C1C" Foreground="#FFFBFBFB" x:Name="ConfirmBtn" Command="{Binding Confirm}"/>
 		<TextBlock HorizontalAlignment="Left" Margin="21,335,0,0" Text="Ngày lập phiếu" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Top"/>
-		<TextBlock HorizontalAlignment="Left" Margin="128,335,0,0" Text="20/2/2020" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Top" x:Name="Created_date"/>
-		<Button Content="THÊM" Background="Blue" Foreground="White" FontSize="16" HorizontalAlignment="Center" Margin="0,186,0,0" VerticalAlignment="Top" x:Name="AddProduct" Width="54"/>
-		<Button Content="XÓA" Background="Red" Foreground="White" FontSize="16" HorizontalAlignment="Center" Margin="0,248,0,0" VerticalAlignment="Top" Width="54" x:Name="DeleteProduct"/>
+		<TextBlock HorizontalAlignment="Left" Margin="128,335,0,0" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Top" Name="Created_date" Text="{Binding Path=CreatedDate}" />
+		<Button Content="THÊM" Background="Blue" Foreground="White" FontSize="16" HorizontalAlignment="Center" Margin="0,186,0,0" VerticalAlignment="Top" Width="54" Name="AddProduct" Command="{Binding Path=AdAddProduct}"/>
+		<Button Content="XÓA" Background="Red" Foreground="White" FontSize="16" HorizontalAlignment="Center" Margin="0,248,0,0" VerticalAlignment="Top" Width="54" Name="DeleteProduct" Command="{Binding Path=AdRemoveProduct}"/>
 		<TextBlock HorizontalAlignment="Left" Margin="23,111,0,0" Text="Danh sách sản phẩm " TextWrapping="Wrap" VerticalAlignment="Top"/>
 		<TextBlock HorizontalAlignment="Left" Margin="441,111,0,0" Text="Danh sách sản phẩm chọn" TextWrapping="Wrap" VerticalAlignment="Top"/>
-		<TextBlock HorizontalAlignment="Left" Margin="438,335,0,0" Text="Thời hạn" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Top"/>
-		<TextBox HorizontalAlignment="Left" Margin="504,335,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-
 	</Grid>
 </Window>
