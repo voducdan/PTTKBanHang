@@ -16,7 +16,7 @@ namespace PTTKBanHang.Models
         public int Id
         {
             get { return _id; }
-            set { }
+            set {}
         }
         public Provider(string name, int id)
         {

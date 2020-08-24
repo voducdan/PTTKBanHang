@@ -99,13 +99,13 @@ namespace PTTKBanHang
                 return 0;
             }
         }
-        public static int InsertOrderReportDetail(int MaDNH, List<SelectedProduct> selectedProducts)
+        public static int InsertOrderReportDetail(int MaDNH,List<SelectedProduct> selectedProducts)
         {
             try
             {
                 OracleConnection con = OracleDBAccess.ConnectOracle();
                 con.Open();
-                foreach (SelectedProduct selectedProduct in selectedProducts)
+                foreach(SelectedProduct selectedProduct in selectedProducts)
                 {
                     OracleCommand oraCommand = new OracleCommand($"INSERT INTO CHITIETNHAPHANG(MADNH ,MASP,SOLUONG) VALUES({MaDNH},{selectedProduct.Id},{selectedProduct.Quantity})", con);
                     oraCommand.ExecuteNonQuery();
@@ -198,9 +198,9 @@ namespace PTTKBanHang
             {
                 if (_provider == value) return;
                 _provider = value;
-                foreach (Provider provider in _providers)
+                foreach(Provider provider in _providers)
                 {
-                    if (provider.Name == _provider)
+                    if(provider.Name == _provider)
                     {
                         _providerId = provider.Id;
                         break;
@@ -286,22 +286,22 @@ namespace PTTKBanHang
 
         private void Add()
         {
-            if (_product == null)
+            if(_product == null)
             {
                 MessageBox.Show("Please select product!!!");
             }
             else
             {
-                foreach (SelectedProduct temp in _selectedProducts)
+                foreach(SelectedProduct temp in _selectedProducts)
                 {
-                    if (temp.Name == _product.Name)
+                    if(temp.Name == _product.Name)
                     {
                         int idx = _selectedProducts.IndexOf(temp);
                         _selectedProducts.RemoveAt(idx);
                         break;
                     }
                 }
-                SelectedProduct selectedProduct = new SelectedProduct(_product.Name, _product.UnitPrice * _product.Quantity, _product.Id, _product.Quantity);
+                SelectedProduct selectedProduct = new SelectedProduct(_product.Name, _product.UnitPrice * _product.Quantity,_product.Id,_product.Quantity);
                 _selectedProducts.Add(selectedProduct);
                 List<SelectedProduct> selectedProductsList = new List<SelectedProduct>(_selectedProducts);
                 TotalPrice = BusinessHandle.CalcTotalPrice(selectedProductsList);
@@ -385,7 +385,7 @@ namespace PTTKBanHang
             }
             return totalPrice;
         }
-        public static void Order(List<SelectedProduct> selectedProducts, int MaNCC, int MaDNH)
+        public static void Order(List<SelectedProduct> selectedProducts, int MaNCC,int MaDNH)
         {
             OracleDBAccess.InsertOrderReport(MaNCC, MaDNH);
             OracleDBAccess.InsertOrderReportDetail(MaDNH, selectedProducts);

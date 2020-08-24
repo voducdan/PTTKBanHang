@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:PTTKBanHang"
         mc:Ignorable="d"
         Title="NhapHang" Height="450" Width="800" ResizeMode="NoResize">
-
 	<Grid Margin="0,4,0,-4">
 		<TextBlock HorizontalAlignment="Center" Margin="0,28,0,0" Text="PHIẾU NHẬP HÀNG" TextWrapping="Wrap" VerticalAlignment="Top" Height="31" Width="252" FontSize="22" TextAlignment="Center" Foreground="#FFE60606" FontWeight="Bold" FontStyle="Normal">
 		</TextBlock>
@@ -26,7 +25,7 @@
 						</GridViewColumn>
 						<GridViewColumn Width="80" Header="Price" DisplayMemberBinding="{Binding UnitPrice}">
 						</GridViewColumn>
-						<GridViewColumn Width="70" Header="Quantity">
+						<GridViewColumn Width="70"         Header="Quantity">
 							<GridViewColumn.CellTemplate>
 								<DataTemplate>
 									<TextBox Text="{Binding Quantity, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="150"/>

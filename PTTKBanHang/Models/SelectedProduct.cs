@@ -30,7 +30,7 @@ namespace PTTKBanHang.Models
             get { return _quantity; }
             set { _quantity = value; }
         }
-        public SelectedProduct(string name, float price, int id, int quantity)
+        public SelectedProduct(string name, float price,int id, int quantity)
         {
             this._id = id;
             this._name = name;

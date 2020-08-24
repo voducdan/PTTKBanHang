@@ -36,7 +36,7 @@ namespace PTTKBanHang.Models
             this._name = name;
             this._unitPrice = price;
         }
-        public ProviderProduct(string name, float price, int quantity, int id)
+        public ProviderProduct(string name,float price,int quantity, int id)
         {
             this._id = id;
             this._name = name;
