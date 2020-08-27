@@ -36,5 +36,11 @@ namespace PTTKBanHang
             var quangcao = new QuangCao();
             quangcao.Show();
         }
+
+        private void ThanhToan_Click(object sender, RoutedEventArgs e)
+        {
+            var thanhtoan = new ThanhToan();
+            thanhtoan.Show();
+        }
     }
 }

@@ -1,0 +1,62 @@
+﻿<Window x:Class="PTTKBanHang.ThanhToan"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PTTKBanHang"
+        mc:Ignorable="d"
+        Title="NhapHang" Height="450" Width="800" ResizeMode="NoResize">
+	<Grid Margin="0,4,0,-4">
+		<TextBlock HorizontalAlignment="Center" Margin="0,25,0,0" Text="PHIẾU XÁC NHẬN THANH TOÁN" TextWrapping="Wrap" VerticalAlignment="Top" Height="31" Width="360" FontSize="22" TextAlignment="Center" Foreground="#FFE60606" FontWeight="Bold" FontStyle="Normal">
+		</TextBlock>
+		<Grid Margin="445,136,19,104">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="9*"/>
+				<ColumnDefinition Width="7*"/>
+			</Grid.ColumnDefinitions>
+			<ListView Grid.ColumnSpan="2" ItemsSource="{Binding Path=InfoProducts}">
+				<ListView.View>
+					<GridView>
+						<GridViewColumn Width="180" Header="Name" DisplayMemberBinding="{Binding Path=TenSP}">
+						</GridViewColumn>
+						<GridViewColumn Width="150" Header="Price" DisplayMemberBinding="{Binding Path=DonGia}">
+						</GridViewColumn>
+					</GridView>
+				</ListView.View>
+			</ListView>
+		</Grid>
+		<ComboBox HorizontalAlignment="Left" Margin="607,70,0,0"
+          VerticalAlignment="Top" Width="170"
+			ItemsSource="{Binding Path=Bills}" 
+          DisplayMemberPath="MaDDH"
+          SelectedValue="{Binding
+            Path=DDH}" 
+          SelectedValuePath="MaDDH"/>
+		<Button Content="Xác nhận" HorizontalAlignment="Center" Margin="0,374,0,0" VerticalAlignment="Top" Height="30" Width="90
+                " FontSize="16" Background="#FF1D1C1C" Foreground="#FFFBFBFB" Click="Button_Click"/>
+		<TextBlock HorizontalAlignment="Left" Margin="552,345,0,0" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Top"/>
+		<TextBlock HorizontalAlignment="Left" Margin="445,345,0,0" FontSize="14" TextWrapping="Wrap" VerticalAlignment="Top"/>
+		<TextBlock HorizontalAlignment="Left" Margin="552,369,0,0" FontSize="14" Text="{Binding TotalPrice}" TextWrapping="Wrap" VerticalAlignment="Top"/>
+		<TextBlock HorizontalAlignment="Right" Margin="0,106,108,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16"/>
+		<TextBlock HorizontalAlignment="Left" Margin="190,106,0,0" Text="Thông tin thanh toán" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16"/>
+		<TextBlock HorizontalAlignment="Left" Margin="441,71,0,0" Text="Chọn mã hóa đơn" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16"/>
+		<TextBlock HorizontalAlignment="Left" Margin="21,71,0,0" Text="Nhập username" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="16"/>
+		<Label Content="Họ và tên" HorizontalAlignment="Left" Height="27" Margin="21,142,0,0" VerticalAlignment="Top" Width="112" FontSize="14"/>
+		<Label Content="Email" HorizontalAlignment="Left" Height="27" Margin="21,174,0,0" VerticalAlignment="Top" Width="112" FontSize="14"/>
+		<Label Content="SDT" HorizontalAlignment="Left" Height="27" Margin="21,206,0,0" VerticalAlignment="Top" Width="112" FontSize="14"/>
+		<Label Content="Địa chỉ" HorizontalAlignment="Left" Height="27" Margin="21,238,0,0" VerticalAlignment="Top" Width="112" FontSize="14"/>
+		<Label Content="Ngày lâp phiếu" HorizontalAlignment="Left" Height="27" Margin="21,270,0,0" VerticalAlignment="Top" Width="112" FontSize="14"/>
+		<TextBlock HorizontalAlignment="Left" Height="18" Margin="160,147,0,0" Text="{Binding Path=InfoCustomer.name}" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" FontSize="14"/>
+		<TextBlock HorizontalAlignment="Left" Height="18" Margin="160,179,0,0" Text="{Binding Path=InfoCustomer.email}" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" FontSize="14"/>
+		<TextBlock HorizontalAlignment="Left" Height="18" Margin="160,211,0,0" Text="{Binding Path=InfoCustomer.phonenumber}" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" FontSize="14"/>
+		<TextBlock HorizontalAlignment="Left" Height="18" Margin="160,243,0,0" Text="{Binding Path=InfoCustomer.address}" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" FontSize="14"/>
+		<TextBlock HorizontalAlignment="Left" Height="18" Margin="160,275,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="210" FontSize="14"
+		 Text="{Binding Path=CreatedDate}"/>
+		<ComboBox HorizontalAlignment="Left" Height="23" Margin="160,70,0,0" VerticalAlignment="Top" Width="210" 
+				  ItemsSource="{Binding Path=Customers}" 
+          DisplayMemberPath="userName"
+          SelectedValue="{Binding
+            Path=Customer}" 
+          SelectedValuePath="userName"/>
+	</Grid>
+</Window>
